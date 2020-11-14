@@ -3,10 +3,13 @@ import React from "react";
 import {ChakraProvider} from "@chakra-ui/core";
 
 import theme from "../theme";
+import {Provider as SessionProvider} from "../session/context";
 
 const App: React.FC<AppProps> = ({Component, pageProps}) => (
   <ChakraProvider resetCSS theme={theme}>
-    <Component {...pageProps} />
+    <SessionProvider>
+      <Component {...pageProps} />
+    </SessionProvider>
   </ChakraProvider>
 );
 
