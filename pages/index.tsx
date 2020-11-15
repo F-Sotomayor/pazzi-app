@@ -78,7 +78,7 @@ const IndexPage: React.FC<Props> = ({products}) => (
               </Flex>
               {product.presentations.map((presentation) => (
                 <Flex
-                  key={presentation.id}
+                  key={presentation.units}
                   alignItems="center"
                   justifyContent="space-between"
                   width="100%"

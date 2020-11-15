@@ -7,7 +7,6 @@ export interface Product {
 }
 
 export interface Presentation {
-  id: string;
   units: number;
   price: number;
 }
