@@ -17,6 +17,13 @@ export interface CartItem {
   presentations: CartItemPresentation[];
 }
 
+export interface Order {
+  date: number;
+  order: CartItem[];
+  email: string;
+  status: "pending" | "completed" | "cancelled";
+}
+
 export interface CartItemPresentation extends Presentation {
   count: number;
 }
