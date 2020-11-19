@@ -1,5 +1,3 @@
-import {timeStamp} from "console";
-
 import {database, firestore} from "../../firebase/admin";
 import {CartItem, Order, Product} from "../types";
 

@@ -1,6 +1,5 @@
-import {auth} from "@pency/api/firebase/admin";
-
-import {ClientTenant} from "~/tenant/types";
+import {auth} from "../../firebase/admin";
+import {ClientTenant} from "../../product/types";
 
 export default {
   verify: (token: string) => auth.verifyIdToken(token),

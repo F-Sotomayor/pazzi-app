@@ -122,7 +122,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
       <Container height="auto" maxWidth="100vw" minHeight="100vh" overflowX="hidden" padding={0}>
         <Stack flex={1} height="100%" margin="auto" maxWidth={800} paddingX={4}>
           <Heading height="15vh">
-            <Image height="100%" src="logo.jpg" width="auto" />
+            <Image display="none" height="100%" src="logo.jpg" width="auto" />
           </Heading>
           <Stack height="100%" spacing={12}>
             {products.map((product, productIndex) => {

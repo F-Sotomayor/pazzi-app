@@ -24,6 +24,10 @@ export interface Order {
   status: "pending" | "completed" | "cancelled";
 }
 
+export interface ClientTenant {
+  id: string;
+}
+
 export interface CartItemPresentation extends Presentation {
   count: number;
 }
