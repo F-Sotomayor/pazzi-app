@@ -46,6 +46,7 @@
       }
     ],
     "import/order": ["warn", {"newlines-between": "always"}],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/prop-types": "off",
     "react/self-closing-comp": "warn",
     "react-hooks/rules-of-hooks": "warn",

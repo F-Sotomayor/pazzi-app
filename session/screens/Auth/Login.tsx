@@ -12,7 +12,7 @@ import {
   Input,
   Avatar,
 } from "@chakra-ui/core";
-import {useForm, Controller} from "react-hook-form";
+import {useForm} from "react-hook-form";
 
 import api from "../../api/client";
 
@@ -28,7 +28,7 @@ interface Props {
 const LoginScreen: React.FC<Props> = ({navigate}) => {
   const [isLoading, setLoading] = React.useState(false);
   const toast = useToast();
-  const {handleSubmit, errors, register, control} = useForm<FormData>({
+  const {handleSubmit, errors, register} = useForm<FormData>({
     defaultValues: {
       email: "",
       password: "",
@@ -52,7 +52,7 @@ const LoginScreen: React.FC<Props> = ({navigate}) => {
 
   return (
     <Flex alignItems="center" direction="column" width="100%">
-      <Avatar marginBottom={6} marginTop={{base: -12, sm: -16}} src="./logo.jpg" />
+      <Avatar height={24} marginBottom={6} marginTop={-16} src="./logo.jpg" width={24} />
       <Box as="form" width="100%" onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={6}>
           <FormControl isInvalid={Boolean(errors.email)}>
@@ -93,15 +93,14 @@ const LoginScreen: React.FC<Props> = ({navigate}) => {
                 Recuperar contraseña
               </Button>
             </FormLabel>
-            <Controller
-              as={Input}
-              control={control}
+            <Input
+              ref={register({required: true})}
               fontSize="md"
               name="password"
               placeholder="********"
-              rules={{required: true}}
               size="lg"
               tabIndex={2}
+              type="password"
             />
             <FormErrorMessage>
               {(errors.password && errors.password.message) || "Este campo es requerido"}

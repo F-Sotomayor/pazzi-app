@@ -1,3 +1,5 @@
+import {CartItem} from "../cart/types";
+
 export interface Product {
   id: string;
   title: string;
@@ -11,10 +13,8 @@ export interface Presentation {
   price: number;
 }
 
-export interface CartItem {
-  id: Product["id"];
-  title: Product["title"];
-  presentations: CartItemPresentation[];
+export interface ClientTenant {
+  id: string;
 }
 
 export interface Order {
@@ -22,12 +22,4 @@ export interface Order {
   order: CartItem[];
   email: string;
   status: "pending" | "completed" | "cancelled";
-}
-
-export interface ClientTenant {
-  id: string;
-}
-
-export interface CartItemPresentation extends Presentation {
-  count: number;
 }
