@@ -18,6 +18,8 @@ import produce from "immer";
 import serverApi from "../product/api/server";
 import clientApi from "../product/api/client";
 import {CartItem, Product} from "../product/types";
+import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header";
 
 interface Props {
   products: Product[];
@@ -120,6 +122,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
   return (
     <>
       <Container height="auto" maxWidth="100vw" minHeight="100vh" overflowX="hidden" padding={0}>
+        <Header />
         <Stack flex={1} height="100%" margin="auto" maxWidth={800} paddingX={4}>
           <Heading height="15vh">
             <Image display="none" height="100%" src="logo.jpg" width="auto" />
@@ -272,6 +275,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
             })}
           </Stack>
         </Stack>
+        <Footer />
       </Container>
       {hasElementsInCart && (
         <Stack
