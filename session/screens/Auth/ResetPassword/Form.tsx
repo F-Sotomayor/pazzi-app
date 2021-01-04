@@ -50,12 +50,9 @@ const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
 
   return (
     <Box as="form" width="100%" onSubmit={handleSubmit(onSubmit)}>
-      <Stack marginBottom={4} spacing={2}>
-        <Text fontSize="xl" fontWeight={500}>
-          Reiniciar contraseña
-        </Text>
-        <Text color="gray.500">Reiniciá tu contraseña</Text>
-      </Stack>
+      <Text fontSize="xl" fontWeight={500} marginBottom={4}>
+        Reiniciar contraseña
+      </Text>
       <Stack spacing={6}>
         <FormControl isInvalid={Boolean(errors.email)}>
           <Input

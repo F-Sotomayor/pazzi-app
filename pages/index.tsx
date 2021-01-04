@@ -10,114 +10,23 @@ import {
   Input,
   StackDivider,
   Button,
-  useToast,
 } from "@chakra-ui/core";
 import {GetServerSideProps} from "next";
-import produce from "immer";
 
 import serverApi from "../product/api/server";
-import clientApi from "../product/api/client";
-import {CartItem, Product} from "../product/types";
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
+import {Product} from "../product/types";
+import {Provider as CartProvider} from "../cart/context";
+import {useCart} from "../cart/hooks";
+import {getRemainingStock} from "../cart/selectors";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 interface Props {
   products: Product[];
 }
 
 const IndexPage: React.FC<Props> = ({products}) => {
-  const toast = useToast();
-  const [isLoading, toggleLoading] = React.useState(false);
-  const [cart, setCart] = React.useState<CartItem[]>(() =>
-    products.map((product) => ({
-      id: product.id,
-      title: product.title,
-      presentations: product.presentations.map((presentation) => ({
-        ...presentation,
-        count: 0,
-      })),
-    })),
-  );
-
-  const hasErrors = React.useMemo(() => {
-    for (const productIndex in cart) {
-      const productStock = cart[productIndex].presentations.reduce(
-        (stock, presentation) => stock - presentation.units * presentation.count,
-        products[productIndex].stock,
-      );
-
-      if (productStock < 0) {
-        return true;
-      }
-    }
-
-    return false;
-  }, [cart, products]);
-
-  const hasElementsInCart = React.useMemo(() => {
-    for (const product of cart) {
-      for (const presentation of product.presentations) {
-        if (presentation.count) return true;
-      }
-    }
-
-    return false;
-  }, [cart]);
-
-  function handleSubmit() {
-    toggleLoading(true);
-
-    clientApi
-      .order(cart)
-      .then(() => {
-        toggleLoading(false);
-        toast({
-          position: "bottom",
-          render: () => {
-            return (
-              <Box
-                alignItems="center"
-                bg="primary.400"
-                borderRadius={4}
-                color="white"
-                display="flex"
-                justifyContent="center"
-                p={3}
-              >
-                <Text>Tu orden ha sido creada!</Text>
-              </Box>
-            );
-          },
-        });
-      })
-      .catch(() => {
-        toggleLoading(false);
-        toast({
-          position: "bottom",
-          render: () => (
-            <Box
-              alignItems="center"
-              bg="red.400"
-              borderRadius={4}
-              color="white"
-              display="flex"
-              justifyContent="center"
-              p={3}
-            >
-              <Text>Hubo un error creando tu orden</Text>
-            </Box>
-          ),
-        });
-      });
-  }
-
-  function handleChange(productIndex, presentationIndex, value) {
-    setCart(
-      produce((cart) => {
-        cart[productIndex].presentations[presentationIndex].count = Number.parseInt(value);
-      }),
-    );
-  }
+  const {cart, onChange: onCartChange, isEmpty, hasErrors, isLoading, onSubmit} = useCart();
 
   return (
     <>
@@ -129,10 +38,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
           </Heading>
           <Stack height="100%" spacing={12}>
             {products.map((product, productIndex) => {
-              const remainingStock = cart[productIndex].presentations.reduce(
-                (stock, presentation) => stock - presentation.units * presentation.count,
-                product.stock,
-              );
+              const remainingStock = getRemainingStock(cart[productIndex], product.stock);
 
               return (
                 <Stack
@@ -246,11 +152,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
                                 value={count || ""}
                                 variant="filled"
                                 onChange={(event) =>
-                                  handleChange(
-                                    productIndex,
-                                    presentationIndex,
-                                    Number(event.target.value),
-                                  )
+                                  onCartChange(productIndex, presentationIndex, event.target.value)
                                 }
                               />
                             </Box>
@@ -277,7 +179,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
         </Stack>
         <Footer />
       </Container>
-      {hasElementsInCart && (
+      {!isEmpty && (
         <Stack
           align="center"
           bottom={0}
@@ -290,7 +192,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
             colorScheme="primary"
             isDisabled={hasErrors}
             isLoading={isLoading}
-            onClick={handleSubmit}
+            onClick={onSubmit}
           >
             Completar pedido
           </Button>
@@ -313,6 +215,14 @@ const IndexPage: React.FC<Props> = ({products}) => {
   );
 };
 
+const Wrapper: React.FC<Props> = ({products}) => {
+  return (
+    <CartProvider products={products}>
+      <IndexPage products={products} />
+    </CartProvider>
+  );
+};
+
 export const getServerSideProps: GetServerSideProps = async function ({res}) {
   try {
     const products = await serverApi.list();
@@ -323,4 +233,4 @@ export const getServerSideProps: GetServerSideProps = async function ({res}) {
   }
 };
 
-export default IndexPage;
+export default Wrapper;
