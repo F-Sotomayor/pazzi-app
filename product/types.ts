@@ -16,10 +16,3 @@ export interface Presentation {
 export interface ClientTenant {
   id: string;
 }
-
-export interface Order {
-  date: number;
-  order: CartItem[];
-  email: string;
-  status: "pending" | "completed" | "cancelled";
-}

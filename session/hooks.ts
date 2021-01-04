@@ -9,3 +9,11 @@ export function useSession() {
 
   return {signOut};
 }
+
+export function useUser() {
+  const {
+    state: {user},
+  } = React.useContext(SessionContext);
+
+  return user;
+}
