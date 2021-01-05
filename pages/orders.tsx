@@ -1,31 +1,21 @@
-import {Box, Button, Flex, Heading, Stack} from "@chakra-ui/core";
+import {Box, Button, Flex, Heading, Stack, Image} from "@chakra-ui/core";
 import React from "react";
 import {format} from "date-fns";
 
 import api from "../order/api/client";
 import {Order} from "../order/types";
 import {useUser} from "../session/hooks";
+import OrderPreview from "../components/Modal/Modal";
+import getOrderTotal from "../selectors/selectors";
 
 const OrdersPage = () => {
+  const [selected, setSelected] = React.useState(null);
   const [orders, setOrders] = React.useState<Order[]>([]);
   const user = useUser();
 
   React.useEffect(() => {
     api.list(user.email).then(setOrders);
   }, [user.email]);
-
-  function getOrderTotal(orders: Order): string {
-    const total = orders.order.reduce((total, item) => {
-      return total + item.presentations.reduce((total, {count, price}) => total + count * price, 0);
-    }, 0);
-
-    return total.toLocaleString("es-AR", {
-      style: "currency",
-      currency: "ARS",
-    });
-  }
-
-  console.log(orders);
 
   return (
     <Stack align="center" maxH="auto" maxW="100vw" minH="100vh" minW="100vw" padding={4}>
@@ -62,11 +52,18 @@ const OrdersPage = () => {
                 {getOrderTotal(order)}
               </Box>
               <Box display="flex" flex={0.3} justifyContent="center">
-                <Button colorScheme="red">Descargar Orden</Button>
+                <Button colorScheme="whatsapp" w={128} onClick={() => setSelected(order)}>
+                  <Image
+                    h={6}
+                    src="https://icongr.am/octicons/eye.svg?size=128&color=ffffff"
+                    w={6}
+                  />
+                </Button>
               </Box>
             </Flex>
           );
         })}
+        {selected && <OrderPreview order={selected} onClose={() => setSelected(null)} />}
       </Stack>
     </Stack>
   );
