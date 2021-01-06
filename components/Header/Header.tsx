@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Stack, Image, Flex, Text} from "@chakra-ui/core";
+import {Box, Stack, Image, Flex, Text, Button, Link} from "@chakra-ui/core";
 
 const Header = () => {
   return (
@@ -44,6 +44,11 @@ const Header = () => {
               />
               Av. Hipolito Yrigoyen 1234, C1106 ACR, Buenos Aires, Argentina.
             </Text>
+          </Box>
+          <Box>
+            <Link _hover={{textDecoration: "none"}} href="./orders">
+              <Button colorScheme="blue">Ver mis pedidos</Button>
+            </Link>
           </Box>
         </Flex>
       </Flex>

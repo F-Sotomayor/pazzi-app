@@ -1,4 +1,4 @@
-import {Box, Button, Flex, Heading, Stack, Image} from "@chakra-ui/core";
+import {Box, Button, Flex, Heading, Stack, Image, Link} from "@chakra-ui/core";
 import React from "react";
 import {format} from "date-fns";
 
@@ -64,6 +64,11 @@ const OrdersPage = () => {
           );
         })}
         {selected && <OrderPreview order={selected} onClose={() => setSelected(null)} />}
+        <Link href="./">
+          <Button colorScheme="blue" left={2} position="absolute" top="90%">
+            Volver
+          </Button>
+        </Link>
       </Stack>
     </Stack>
   );

@@ -10,6 +10,7 @@ import {
   Input,
   StackDivider,
   Button,
+  Link,
 } from "@chakra-ui/core";
 import {GetServerSideProps} from "next";
 

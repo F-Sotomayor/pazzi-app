@@ -48,7 +48,10 @@ const OrderPreview = ({onClose, order}) => {
               <Box flex={0.3}>Precio Total</Box>
             </Flex>
             <Flex align="center" justify="center" margin="auto" padding={4} w="80%">
-              <Box flex={0.3}> {format(order.date, "MM/dd/yyyy / HH:mm:ss")}</Box>
+              <Box alignSelf="flex-start" flex={0.3}>
+                {" "}
+                {format(order.date, "MM/dd/yyyy / HH:mm:ss")}
+              </Box>
               <Box flex={0.3}>
                 {order.order.map((item) => {
                   return (
@@ -69,11 +72,13 @@ const OrderPreview = ({onClose, order}) => {
                   );
                 })}
               </Box>
-              <Box flex={0.3}>{getOrderTotal(order)}</Box>
+              <Box alignSelf="flex-start" flex={0.3}>
+                {getOrderTotal(order)}
+              </Box>
             </Flex>
             <Box margin="auto" marginTop={12} w={200}>
               <Button colorScheme="blue" w={128}>
-                Descargar PDF
+                Imprimir
               </Button>
             </Box>
             <Box left={2} position="absolute" top="90%">
