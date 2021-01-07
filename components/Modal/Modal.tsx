@@ -44,18 +44,32 @@ const OrderPreview = ({onClose, order}) => {
               w="80%"
             >
               <Box flex={0.3}>Fecha</Box>
-              <Box flex={0.3}>Pedido</Box>
-              <Box flex={0.3}>Precio Total</Box>
+              <Box display="flex" flex={0.3} justifyContent={{base: "center", lg: "flex-start"}}>
+                Pedido
+              </Box>
+              <Box display="flex" flex={0.3} justifyContent={{base: "center", lg: "flex-start"}}>
+                Precio Total
+              </Box>
             </Flex>
             <Flex align="center" justify="center" margin="auto" padding={4} w="80%">
               <Box alignSelf="flex-start" flex={0.3}>
                 {" "}
                 {format(order.date, "MM/dd/yyyy / HH:mm:ss")}
               </Box>
-              <Box flex={0.3}>
+              <Box
+                alignItems={{base: "center", lg: "flex-start"}}
+                display="flex"
+                flex={0.3}
+                flexDirection="column"
+              >
                 {order.order.map((item) => {
                   return (
-                    <Flex key={item.id} align="flex-start" direction="column" w="auto">
+                    <Flex
+                      key={item.id}
+                      alignItems={{base: "center", lg: "flex-start"}}
+                      direction="column"
+                      w="auto"
+                    >
                       <Badge colorScheme="blue" marginY="0.25rem" w="auto">
                         {item.title}
                       </Badge>
@@ -72,12 +86,17 @@ const OrderPreview = ({onClose, order}) => {
                   );
                 })}
               </Box>
-              <Box alignSelf="flex-start" flex={0.3}>
+              <Box
+                alignSelf="flex-start"
+                display="flex"
+                flex={0.3}
+                justifyContent={{base: "center", lg: "flex-start"}}
+              >
                 {getOrderTotal(order)}
               </Box>
             </Flex>
             <Box margin="auto" marginTop={12} w={200}>
-              <Button colorScheme="blue" w={128}>
+              <Button colorScheme="blue" w={128} onClick={(e) => window.print()}>
                 Imprimir
               </Button>
             </Box>
