@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {CartItem} from "../types";
+import {CartItem} from "../../cart/types";
 
 export default {
   order: (items: CartItem[]): Promise<void> =>

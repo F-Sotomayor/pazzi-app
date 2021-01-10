@@ -1,5 +1,3 @@
-import {CartItem} from "../cart/types";
-
 export interface Product {
   id: string;
   title: string;

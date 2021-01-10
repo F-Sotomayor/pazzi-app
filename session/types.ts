@@ -1,4 +1,4 @@
-import {User as FirebaseUser} from "firebase";
+import {User as FirebaseUser} from "firebase/firebase";
 
 export type User = FirebaseUser;
 export interface State {
