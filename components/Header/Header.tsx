@@ -15,9 +15,9 @@ const Header = () => {
       <Flex height="30vh" paddingY={4} width="100%">
         <Flex align="center" flex={0.3} height="100%">
           <Box
-            backgroundImage="url(bgheader.jpg)"
+            backgroundImage="url(logo.png)"
             backgroundPosition="center center"
-            backgroundSize="fill"
+            backgroundSize="contain"
             border="3px solid white"
             borderRadius="50%"
             display="flex"
