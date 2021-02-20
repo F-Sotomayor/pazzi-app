@@ -65,17 +65,6 @@ const IndexPage: React.FC<Props> = ({products}) => {
                         </Text>
                         <Text fontSize="lg">{product.description}</Text>
                       </Stack>
-                      <Text
-                        backgroundColor={remainingStock < 0 ? "red.500" : "primary.800"}
-                        borderRadius={9999}
-                        color="white"
-                        fontSize="sm"
-                        height="auto"
-                        textAlign="center"
-                        width={100}
-                      >
-                        Stock : {remainingStock}
-                      </Text>
                     </Stack>
                   </Stack>
                   <Stack spacing={0}>
@@ -133,7 +122,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
                             width="100%"
                           >
                             <Text flex={0.25} fontSize={[12, 12, 12, 16]}>
-                              {presentation.units}
+                              Pack de : {presentation.units} unidades
                             </Text>
                             <Text display="none" flex={0.25} fontSize={[12, 12, 12, 16]}>
                               {presentation.price.toLocaleString("es-AR", {
@@ -189,12 +178,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
           position="sticky"
           width="100%"
         >
-          <Button
-            colorScheme="primary"
-            isDisabled={hasErrors}
-            isLoading={isLoading}
-            onClick={onSubmit}
-          >
+          <Button colorScheme="primary" isLoading={isLoading} onClick={onSubmit}>
             Completar pedido
           </Button>
           {hasErrors && (
@@ -207,7 +191,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
               padding={2}
               textAlign="center"
             >
-              No hay suficiente stock en alguno de los productos de tu pedido
+              Tu pedido supera el stock actual, es probable que tarde mas de lo debido.
             </Box>
           )}
         </Stack>
