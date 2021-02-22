@@ -3,7 +3,7 @@ import {Box, Stack, Image, Flex, Text, Button, Link} from "@chakra-ui/core";
 
 const Header = () => {
   return (
-    <Stack height="auto" paddingX={24} width="100vw">
+    <Stack height="auto" paddingX={{base: "6px", lg: "24px"}} width="100vw">
       <Box
         backgroundImage="url(bgheader.jpg)"
         backgroundPosition="center"
@@ -12,7 +12,12 @@ const Header = () => {
         height="128px"
         width="100%"
       />
-      <Flex height="30vh" paddingY={4} width="100%">
+      <Flex
+        direction={{base: "column", lg: "row"}}
+        height={{base: "50vh", lg: "35vh"}}
+        paddingY={4}
+        width="100%"
+      >
         <Flex align="center" flex={0.3} height="100%">
           <Box
             backgroundImage="url(logo.png)"
@@ -28,26 +33,34 @@ const Header = () => {
             width={52}
           />
         </Flex>
-        <Flex flex={0.7} height="100%">
-          <Box display="flex" flexDirection="column">
+        <Flex
+          direction={{base: "column", lg: "row"}}
+          flex={0.7}
+          height="100%"
+          padding={{base: "6px", lg: "0"}}
+        >
+          <Box
+            alignItems={{base: "center", lg: "flex-start"}}
+            display="flex"
+            flexDirection="column"
+          >
             <Text fontSize={28} fontWeight={700} marginBottom={2}>
               Pazzi Panes de Papa
             </Text>
-            <Text color="rgb(113, 128, 150)" fontSize={20} marginBottom={2}>
+            <Text
+              color="rgb(113, 128, 150)"
+              fontSize={20}
+              marginBottom={2}
+              textAlign={{base: "center"}}
+            >
               Una descripcion que no se me ocurre ni en joda
             </Text>
-            <Text alignItems="center" color="primary.300" display="flex" fontSize={20}>
-              <Image
-                height={5}
-                src="https://icongr.am/clarity/map-marker.svg?size=128&color=364be7"
-                width={5}
-              />
-              Av. Hipolito Yrigoyen 1234, C1106 ACR, Buenos Aires, Argentina.
-            </Text>
           </Box>
-          <Box>
+          <Box display="flex" justifyContent={{base: "center", lg: ""}}>
             <Link _hover={{textDecoration: "none"}} href="./orders">
-              <Button colorScheme="blue">Ver mis pedidos</Button>
+              <Button colorScheme="blue" marginTop={{base: "8rem", lg: "0"}}>
+                Ver mis pedidos
+              </Button>
             </Link>
           </Box>
         </Flex>
@@ -59,8 +72,9 @@ const Header = () => {
         color="primary.50"
         display="flex"
         fontSize={20}
-        height="8vh"
+        height={{base: "12vh", lg: "8vh"}}
         justifyContent="center"
+        padding={{base: "0.5rem", lg: "0"}}
         width="100%"
       >
         Todos los pedidos hechos pasadas las 15hs recien seran leidos al otro dia!

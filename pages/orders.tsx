@@ -20,14 +20,14 @@ const OrdersPage = () => {
   return (
     <Stack align="center" maxH="auto" maxW="100vw" minH="100vh" minW="100vw" padding={4}>
       <Heading>Mis pedidos</Heading>
-      <Stack align="center" h="auto" w="100%">
+      <Stack align="center" h="auto" w={{base: "100vw", lg: "100%"}}>
         <Flex
           backgroundColor="primary.100"
           fontSize={20}
           fontWeight={500}
           marginTop={12}
           padding={2}
-          w="50%"
+          w={{base: "100%", lg: "50%"}}
         >
           <Box flex={0.5}>Fecha</Box>
           <Box flex={0.3}>Total</Box>
@@ -43,7 +43,7 @@ const OrdersPage = () => {
               h="auto"
               marginTop={2}
               padding={2}
-              w="50%"
+              w={{base: "100%", lg: "50%"}}
             >
               <Box flex={0.5} fontSize={20}>
                 {format(order.date, "MM/dd/yyyy / HH:mm:ss")}
