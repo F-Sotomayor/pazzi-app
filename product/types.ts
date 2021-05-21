@@ -3,6 +3,7 @@ export interface Product {
   title: string;
   description: string;
   stock: number;
+  test: string;
   presentations: Presentation[];
 }
 
