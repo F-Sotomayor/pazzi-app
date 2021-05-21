@@ -3,7 +3,7 @@ import {database, firestore} from "../../firebase/admin";
 import {Order} from "../types";
 
 export default {
-  create: async (order: CartItem[], email: string): Promise<Order> => {
+  create: async (order: CartItem[], email: string, ordernumber: number): Promise<Order> => {
     const batch = database.batch();
 
     for (const {id, presentations} of order) {
@@ -24,6 +24,7 @@ export default {
       email,
       order,
       status: "pending",
+      ordernumber: Math.floor(Math.random() * 1000),
     };
 
     await database.collection("orders").add(registry);

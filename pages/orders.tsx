@@ -29,6 +29,7 @@ const OrdersPage = () => {
           padding={2}
           w={{base: "100%", lg: "50%"}}
         >
+          <Box flex={0.2}>Orden</Box>
           <Box flex={0.5}>Fecha</Box>
           <Box flex={0.3}>Total</Box>
           <Box flex={0.3} />
@@ -45,6 +46,9 @@ const OrdersPage = () => {
               padding={2}
               w={{base: "100%", lg: "50%"}}
             >
+              <Box flex={0.2} fontSize={20}>
+                {order.ordernumber}
+              </Box>
               <Box flex={0.5} fontSize={20}>
                 {format(order.date, "MM/dd/yyyy / HH:mm:ss")}
               </Box>

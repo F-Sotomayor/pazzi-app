@@ -5,4 +5,5 @@ export interface Order {
   order: CartItem[];
   email: string;
   status: "pending" | "completed" | "cancelled";
+  ordernumber: number;
 }
