@@ -10,7 +10,6 @@ import {
   Input,
   StackDivider,
   Button,
-  Link,
 } from "@chakra-ui/core";
 import {GetServerSideProps} from "next";
 
@@ -22,8 +21,6 @@ import {getRemainingStock} from "../cart/selectors";
 import Header from "../components/Header";
 import {useUser} from "../session/hooks";
 import Footer from "../components/Footer";
-import api from "../product/api";
-
 interface Props {
   products: Product[];
 }
@@ -31,6 +28,8 @@ interface Props {
 const IndexPage: React.FC<Props> = ({products}) => {
   const {cart, onChange: onCartChange, isEmpty, hasErrors, isLoading, onSubmit} = useCart();
   const user = useUser();
+
+  console.log(user);
 
   return (
     <>
