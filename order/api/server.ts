@@ -1,3 +1,6 @@
+import React from "react";
+import react from "react";
+
 import {CartItem} from "../../cart/types";
 import {database, firestore} from "../../firebase/admin";
 import {Order} from "../types";
@@ -16,6 +19,9 @@ export default {
         stock: firestore.FieldValue.increment(-units),
       });
     }
+    batch.update(database.collection("test").doc("order"), {
+      orderNumber: firestore.FieldValue.increment(1),
+    });
 
     await batch.commit();
 
@@ -24,7 +30,9 @@ export default {
       email,
       order,
       status: "pending",
-      ordernumber: Math.floor(Math.random() * 1000),
+      ordernumber: Number(
+        (await database.collection("test").doc("order").get()).data().orderNumber,
+      ),
     };
 
     await database.collection("orders").add(registry);

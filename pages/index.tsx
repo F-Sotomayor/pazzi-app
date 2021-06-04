@@ -12,6 +12,7 @@ import {
   Button,
 } from "@chakra-ui/core";
 import {GetServerSideProps} from "next";
+import firebase from "firebase";
 
 import serverApi from "../product/api/server";
 import {Product} from "../product/types";
@@ -29,8 +30,6 @@ const IndexPage: React.FC<Props> = ({products}) => {
   const {cart, onChange: onCartChange, isEmpty, hasErrors, isLoading, onSubmit} = useCart();
   const user = useUser();
 
-  console.log(user);
-
   return (
     <>
       <Container height="auto" maxWidth="100vw" minHeight="100vh" overflowX="hidden" padding={0}>
@@ -39,6 +38,16 @@ const IndexPage: React.FC<Props> = ({products}) => {
           <Heading height="15vh">
             <Image display="none" height="100%" src="logo.jpg" width="auto" />
           </Heading>
+          <Button
+            colorScheme="red"
+            left={1}
+            position="fixed"
+            top="90%"
+            w={128}
+            onClick={() => firebase.auth().signOut()}
+          >
+            Cerrar Sesion
+          </Button>
           <Stack height="100%" spacing={12}>
             {products.map((product, productIndex) => {
               const remainingStock = getRemainingStock(cart[productIndex], product.stock);
@@ -189,6 +198,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
           <Button colorScheme="primary" isLoading={isLoading} onClick={onSubmit}>
             Completar pedido
           </Button>
+
           {hasErrors && (
             <Box
               backgroundColor="red.500"
