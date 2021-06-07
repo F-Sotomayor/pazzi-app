@@ -5,6 +5,7 @@ export interface Product {
   stock: number;
   test: string;
   presentations: Presentation[];
+  type: string;
 }
 
 export interface Presentation {

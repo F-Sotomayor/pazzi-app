@@ -68,7 +68,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
                   >
                     <Stack direction="row" spacing={4}>
                       <Box height="auto" maxHeight="100%">
-                        <Image borderRadius="lg" height={24} src="pantest.png" />
+                        <Image borderRadius="lg" height={24} src={`${product.type}.jpeg`} w={40} />
                       </Box>
                       <Stack spacing={2}>
                         <Stack spacing={0}>
