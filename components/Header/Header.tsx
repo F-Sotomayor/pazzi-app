@@ -9,7 +9,7 @@ const Header = () => {
         backgroundPosition="center"
         backgroundSize="cover"
         borderBottomRadius="md"
-        height="128px"
+        height="350px"
         width="100%"
       />
       <Flex
