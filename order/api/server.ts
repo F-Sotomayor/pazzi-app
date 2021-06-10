@@ -6,7 +6,7 @@ import {database, firestore} from "../../firebase/admin";
 import {Order} from "../types";
 
 export default {
-  create: async (order: CartItem[], email: string, ordernumber: number): Promise<Order> => {
+  create: async (order: CartItem[], email: string): Promise<Order> => {
     const batch = database.batch();
 
     for (const {id, presentations} of order) {
