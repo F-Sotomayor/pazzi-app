@@ -18,7 +18,12 @@ const Header = () => {
         paddingY={4}
         width="100%"
       >
-        <Flex align="center" flex={0.3} height="100%">
+        <Flex
+          align="center"
+          flex={{base: 0, lg: 0.3}}
+          height={{base: "50%", lg: "100%"}}
+          justify="center"
+        >
           <Box
             backgroundImage="url(logo.png)"
             backgroundPosition="center center"
@@ -28,8 +33,7 @@ const Header = () => {
             display="flex"
             height={52}
             justifyContent="center"
-            marginLeft={20}
-            transform="translateY(-25%)"
+            transform={{base: "translateY(-50%)", lg: "translateY(-25%)"}}
             width={52}
           />
         </Flex>
@@ -56,9 +60,9 @@ const Header = () => {
               Una descripcion que no se me ocurre ni en joda
             </Text>
           </Box>
-          <Box display="flex" justifyContent={{base: "center", lg: ""}}>
+          <Box display="flex" justifyContent={{base: "center"}}>
             <Link _hover={{textDecoration: "none"}} href="./orders">
-              <Button colorScheme="blue" marginTop={{base: "8rem", lg: "0"}}>
+              <Button colorScheme="blue" marginTop={{base: "0", lg: "0"}}>
                 Ver mis pedidos
               </Button>
             </Link>
@@ -72,9 +76,10 @@ const Header = () => {
         color="primary.50"
         display="flex"
         fontSize={20}
-        height={{base: "12vh", lg: "8vh"}}
+        height={{base: "18vh", lg: "8vh"}}
         justifyContent="center"
         padding={{base: "0.5rem", lg: "0"}}
+        textAlign={{base: "center"}}
         width="100%"
       >
         Todos los pedidos hechos pasadas las 15hs recien seran leidos al otro dia!

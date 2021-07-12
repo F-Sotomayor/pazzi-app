@@ -28,12 +28,13 @@ const OrderPreview = ({onClose, order}) => {
             padding={4}
             width="100%"
           >
-            <Heading>Detalle de mi pedido</Heading>
+            <Heading textAlign={{base: "center"}}>Detalle de mi pedido</Heading>
           </DrawerHeader>
           <DrawerBody margin={0} padding={0}>
             <Flex
               align="center"
               backgroundColor="primary.200"
+              display={{base: "none"}}
               fontSize={20}
               fontWeight={500}
               h="10vh"
@@ -43,16 +44,26 @@ const OrderPreview = ({onClose, order}) => {
               padding={4}
               w="80%"
             >
-              <Box flex={0.3}>Fecha</Box>
-              <Box display="flex" flex={0.3} justifyContent={{base: "center", lg: "flex-start"}}>
+              <Box display={{base: "none"}} flex={0.3}>
+                Fecha
+              </Box>
+              <Box
+                display={{base: "none", lg: "flex"}}
+                flex={0.3}
+                justifyContent={{base: "center", lg: "flex-start"}}
+              >
                 Pedido
               </Box>
-              <Box display="flex" flex={0.3} justifyContent={{base: "center", lg: "flex-start"}}>
+              <Box
+                display={{base: "none", lg: "flex"}}
+                flex={0.3}
+                justifyContent={{base: "center", lg: "flex-start"}}
+              >
                 Precio Total
               </Box>
             </Flex>
             <Flex align="center" justify="center" margin="auto" padding={4} w="80%">
-              <Box alignSelf="flex-start" flex={0.3}>
+              <Box alignSelf="flex-start" display={{base: "none"}} flex={0.3}>
                 {" "}
                 {format(order.date, "MM/dd/yyyy / HH:mm:ss")}
               </Box>
@@ -63,39 +74,44 @@ const OrderPreview = ({onClose, order}) => {
                 flexDirection="column"
               >
                 {order.order.map((item) => {
-                  return (
-                    <Flex
-                      key={item.id}
-                      alignItems={{base: "center", lg: "flex-start"}}
-                      direction="column"
-                      w="auto"
-                    >
-                      <Badge colorScheme="blue" marginY="0.25rem" w="auto">
-                        {item.title}
-                      </Badge>
-                      {item.presentations.map((presentation, index) => {
-                        return (
+                  return item.presentations.map((presentation, index) => {
+                    if (presentation.count > 0)
+                      return (
+                        <Flex
+                          key={item.id}
+                          alignItems={{base: "center", lg: "flex-start"}}
+                          direction="column"
+                          w="auto"
+                        >
+                          <Badge colorScheme="blue" marginY="0.25rem" w="auto">
+                            {item.title}
+                          </Badge>
                           <Box key={index}>
                             <Text>
                               Pack: {presentation.count} : {presentation.units}
                             </Text>
                           </Box>
-                        );
-                      })}
-                    </Flex>
-                  );
+                        </Flex>
+                      );
+                  });
                 })}
               </Box>
               <Box
                 alignSelf="flex-start"
-                display="flex"
+                display={{base: "none"}}
                 flex={0.3}
                 justifyContent={{base: "center", lg: "flex-start"}}
               >
                 {getOrderTotal(order)}
               </Box>
             </Flex>
-            <Box margin="auto" marginTop={12} w={200}>
+            <Box
+              display={{base: "flex"}}
+              justifyContent={{base: "center"}}
+              margin="auto"
+              marginTop={12}
+              w={200}
+            >
               <Button colorScheme="blue" w={128} onClick={(e) => window.print()}>
                 Imprimir
               </Button>

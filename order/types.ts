@@ -6,4 +6,5 @@ export interface Order {
   email: string;
   status: "pending" | "completed" | "cancelled";
   ordernumber: number;
+  deliveryDate: number;
 }

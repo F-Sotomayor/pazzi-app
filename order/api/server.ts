@@ -1,12 +1,9 @@
-import React from "react";
-import react from "react";
-
 import {CartItem} from "../../cart/types";
 import {database, firestore} from "../../firebase/admin";
 import {Order} from "../types";
 
 export default {
-  create: async (order: CartItem[], email: string): Promise<Order> => {
+  create: async (order: CartItem[], deliveryDate: number, email: string): Promise<Order> => {
     const batch = database.batch();
 
     for (const {id, presentations} of order) {
@@ -30,6 +27,7 @@ export default {
       email,
       order,
       status: "pending",
+      deliveryDate,
       ordernumber: Number(
         (await database.collection("test").doc("order").get()).data().orderNumber,
       ),

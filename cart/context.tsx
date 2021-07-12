@@ -13,10 +13,12 @@ export interface Context {
     cart: CartItem[];
     hasErrors: boolean;
     isEmpty: boolean;
+    deliveryDate: number;
   };
   actions: {
     onChange: (productIndex: number, presentationIndex: number, value: string) => void;
     onSubmit: VoidFunction;
+    onDeliveryDateChange: (deliveryDate: number) => void;
   };
 }
 
@@ -27,6 +29,7 @@ interface Props {
 const CartContext = React.createContext<Context>({} as Context);
 
 const CartProvider: React.FC<Props> = ({children, products}) => {
+  const [deliveryDate, setDeliveryDate] = React.useState(+new Date());
   const toast = useToast();
   const [isLoading, toggleLoading] = React.useState(false);
   const [cart, setCart] = React.useState<CartItem[]>(() =>
@@ -75,11 +78,16 @@ const CartProvider: React.FC<Props> = ({children, products}) => {
     );
   }
 
+  function onDeliveryDateChange(deliveryDate) {
+    console.log(deliveryDate);
+    setDeliveryDate(deliveryDate);
+  }
+
   function onSubmit() {
     toggleLoading(true);
 
     clientApi
-      .order(cart)
+      .order(cart, deliveryDate)
       .then(() => {
         toggleLoading(false);
         toast({
@@ -127,10 +135,12 @@ const CartProvider: React.FC<Props> = ({children, products}) => {
     isEmpty,
     hasErrors,
     isLoading,
+    deliveryDate,
   };
   const actions = {
     onChange,
     onSubmit,
+    onDeliveryDateChange,
   };
 
   return <CartContext.Provider value={{state, actions}}>{children}</CartContext.Provider>;

@@ -10,6 +10,14 @@ import {
   Input,
   StackDivider,
   Button,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
 } from "@chakra-ui/core";
 import {GetServerSideProps} from "next";
 import firebase from "firebase";
@@ -27,8 +35,19 @@ interface Props {
 }
 
 const IndexPage: React.FC<Props> = ({products}) => {
-  const {cart, onChange: onCartChange, isEmpty, hasErrors, isLoading, onSubmit} = useCart();
+  const {
+    cart,
+    onChange: onCartChange,
+    isEmpty,
+    hasErrors,
+    isLoading,
+    onSubmit,
+    deliveryDate,
+    onDeliveryDateChange,
+  } = useCart();
   const user = useUser();
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const btnRef = React.useRef();
 
   return (
     <>
@@ -38,11 +57,118 @@ const IndexPage: React.FC<Props> = ({products}) => {
           <Heading height="15vh">
             <Image display="none" height="100%" src="logo.jpg" width="auto" />
           </Heading>
+          <>
+            <Drawer
+              finalFocusRef={btnRef}
+              isOpen={isOpen}
+              placement="right"
+              size="full"
+              onClose={onClose}
+            >
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerCloseButton />
+                <DrawerHeader fontSize={36} textAlign="center">
+                  Detalle del pedido
+                </DrawerHeader>
+
+                <DrawerBody>
+                  <Stack direction="row" h="auto" w="100%">
+                    <Flex flex={0.5} justifyContent="center">
+                      <Box
+                        alignItems="center"
+                        backgroundColor="primary.300"
+                        borderRadius={8}
+                        color="white"
+                        display="flex"
+                        fontSize={20}
+                        height="50px"
+                        justifyContent="center"
+                        w={{base: "130px", lg: "200px"}}
+                      >
+                        Producto
+                      </Box>
+                    </Flex>
+                    <Flex flex={0.5} justifyContent="center">
+                      <Box
+                        alignItems="center"
+                        backgroundColor="primary.300"
+                        borderRadius={8}
+                        color="white"
+                        display="flex"
+                        fontSize={20}
+                        height="50px"
+                        justifyContent="center"
+                        w={{base: "130px", lg: "200px"}}
+                      >
+                        Precio
+                      </Box>
+                    </Flex>
+                  </Stack>
+                  {cart.map((product) =>
+                    product.presentations.map((presentation) => {
+                      if (presentation.count > 0)
+                        return (
+                          <Stack key={product.id} direction="row" h="auto" marginY={4} w="100%">
+                            <Flex flex={0.5} justifyContent="center">
+                              <Box>{product.title}</Box>
+                            </Flex>
+                            <Flex flex={0.5} justifyContent="center">
+                              <Box w="50px">$ {presentation.price * presentation.count}</Box>
+                            </Flex>
+                          </Stack>
+                        );
+                    }),
+                  )}
+                  <Stack align="center" direction="column" h="auto" marginY={8} w="100%">
+                    <Box fontSize={20} fontWeight={500} textAlign={{base: "center"}}>
+                      Para cuando quiere el pedido?
+                    </Box>
+                    <form>
+                      <input
+                        type="date"
+                        onChange={(event) => onDeliveryDateChange(+new Date(event.target.value))}
+                      />
+                    </form>
+                  </Stack>
+                  <Stack />
+                </DrawerBody>
+
+                <DrawerFooter
+                  display="flex"
+                  flexDirection="column"
+                  height="auto"
+                  justifyContent="space-between"
+                  w="100%"
+                >
+                  <Box fontSize={24} fontWeight={500}>
+                    Total: $
+                    {cart.reduce((accumulator, item) => {
+                      item.presentations.forEach((presentation) => {
+                        if (presentation.count > 0)
+                          accumulator = accumulator + presentation.price * presentation.count;
+                      });
+
+                      return accumulator;
+                    }, 0)}
+                  </Box>
+                  <Stack direction="row">
+                    <Button colorScheme="red" mr={3} onClick={onClose}>
+                      Cancelar
+                    </Button>
+                    <Button colorScheme="green" onClick={onSubmit}>
+                      Confirmar
+                    </Button>
+                  </Stack>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
+          </>
           <Button
             colorScheme="red"
             left={1}
             position="fixed"
-            top="90%"
+            top={{base: "0%", lg: "90%"}}
             w={128}
             onClick={() => firebase.auth().signOut()}
           >
@@ -66,16 +192,37 @@ const IndexPage: React.FC<Props> = ({products}) => {
                     padding={4}
                     spacing={4}
                   >
-                    <Stack direction="row" spacing={4}>
-                      <Box height="auto" maxHeight="100%">
-                        <Image borderRadius="lg" height={24} src={`${product.type}.jpeg`} w={40} />
+                    <Stack
+                      align={{base: "center"}}
+                      direction={{base: "column", lg: "row"}}
+                      spacing={4}
+                    >
+                      <Box
+                        display={{base: "flex"}}
+                        flex={{base: 0.5}}
+                        height="auto"
+                        maxHeight="100%"
+                      >
+                        <Image
+                          borderRadius="lg"
+                          height={{base: 24, lg: 24}}
+                          src={`${product.type}.jpeg`}
+                          w={{base: "250px", lg: 40}}
+                        />
                       </Box>
-                      <Stack spacing={2}>
+                      <Stack flex={{base: 0.5}} spacing={2}>
                         <Stack spacing={0}>
-                          <Text fontSize="2xl" fontWeight={500} lineHeight="normal">
+                          <Text
+                            fontSize={{base: "1xl", lg: "2xl"}}
+                            fontWeight={500}
+                            lineHeight="normal"
+                            textAlign={{base: "center"}}
+                          >
                             {product.title}
                           </Text>
-                          <Text fontSize="lg">{product.description}</Text>
+                          <Text fontSize="lg" textAlign={{base: "center"}}>
+                            {product.description}
+                          </Text>
                         </Stack>
                       </Stack>
                     </Stack>
@@ -195,7 +342,14 @@ const IndexPage: React.FC<Props> = ({products}) => {
           position="sticky"
           width="100%"
         >
-          <Button colorScheme="primary" isLoading={isLoading} onClick={onSubmit}>
+          <Button
+            ref={btnRef}
+            colorScheme="primary"
+            isLoading={isLoading}
+            marginBottom={{base: "1rem"}}
+            w={{base: "300px"}}
+            onClick={onOpen}
+          >
             Completar pedido
           </Button>
 
@@ -237,3 +391,4 @@ export const getServerSideProps: GetServerSideProps = async function ({res}) {
 };
 
 export default Wrapper;
+export {IndexPage};

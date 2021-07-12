@@ -5,7 +5,7 @@ import serverApi from "../../order/api/server";
 import {auth} from "../../firebase/admin";
 
 interface PostRequest extends NextApiRequest {
-  body: CartItem[];
+  body: {items: CartItem[]; deliveryDate: number};
   headers: {
     authorization: string;
   };
@@ -21,12 +21,15 @@ interface GetRequest extends NextApiRequest {
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   if (req.method === "POST") {
-    const {body: order, headers} = req as PostRequest;
+    const {
+      body: {items, deliveryDate},
+      headers,
+    } = req as PostRequest;
 
     return auth
       .verifyIdToken(headers.authorization)
       .then(async (user) => {
-        const result = await serverApi.create(order, user.email);
+        const result = await serverApi.create(items, deliveryDate, user.email);
 
         res.status(200).json(result);
       })

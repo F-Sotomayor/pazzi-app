@@ -9,11 +9,22 @@ export function useCart(): {
   isEmpty: Context["state"]["isEmpty"];
   onChange: Context["actions"]["onChange"];
   onSubmit: Context["actions"]["onSubmit"];
+  onDeliveryDateChange: Context["actions"]["onDeliveryDateChange"];
+  deliveryDate: Context["state"]["deliveryDate"];
 } {
   const {
-    state: {cart, isEmpty, hasErrors, isLoading},
-    actions: {onChange, onSubmit},
+    state: {cart, isEmpty, hasErrors, isLoading, deliveryDate},
+    actions: {onChange, onSubmit, onDeliveryDateChange},
   } = React.useContext(CartContext);
 
-  return {cart, hasErrors, isEmpty, onChange, isLoading, onSubmit};
+  return {
+    cart,
+    hasErrors,
+    isEmpty,
+    onChange,
+    isLoading,
+    onSubmit,
+    onDeliveryDateChange,
+    deliveryDate,
+  };
 }
