@@ -145,7 +145,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
                   flexDirection="column"
                   height="auto"
                   justifyContent="space-between"
-                  marginBottom={{base: "2rem"}}
+                  marginBottom={{base: "4rem"}}
                   w="100%"
                 >
                   <Box fontSize={24} fontWeight={500}>
