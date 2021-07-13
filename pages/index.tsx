@@ -60,7 +60,6 @@ const IndexPage: React.FC<Props> = ({products}) => {
           <>
             <Drawer
               finalFocusRef={btnRef}
-              height={{base: "auto"}}
               isOpen={isOpen}
               placement="right"
               size="full"
