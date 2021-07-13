@@ -120,7 +120,13 @@ const IndexPage: React.FC<Props> = ({products}) => {
                         );
                     }),
                   )}
-                  <Stack align="center" direction="column" h="auto" marginY={8} w="100%">
+                  <Stack
+                    align="center"
+                    direction="column"
+                    h={{base: "150px", lg: "auto"}}
+                    marginY={8}
+                    w="100%"
+                  >
                     <Box fontSize={20} fontWeight={500} textAlign={{base: "center"}}>
                       Para cuando quiere el pedido?
                     </Box>
