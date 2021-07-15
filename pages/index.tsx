@@ -114,7 +114,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
                               <Box>{product.title}</Box>
                             </Flex>
                             <Flex flex={0.5} justifyContent="center">
-                              <Box w="50px">$ {presentation.price * presentation.count}</Box>
+                              <Box w="100px">$ {presentation.price * presentation.count}</Box>
                             </Flex>
                           </Stack>
                         );

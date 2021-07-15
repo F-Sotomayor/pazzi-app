@@ -24,7 +24,7 @@ const OrdersPage = () => {
         <Flex
           align={{base: "center"}}
           backgroundColor="primary.100"
-          direction={{base: "column"}}
+          direction={{base: "column", lg: "row"}}
           fontSize={20}
           fontWeight={500}
           marginTop={12}
@@ -45,7 +45,7 @@ const OrdersPage = () => {
                 align="center"
                 borderBottom="0.5px solid"
                 borderColor="primary.100"
-                flexDirection={{base: "column"}}
+                flexDirection={{base: "column", lg: "row"}}
                 h="auto"
                 marginTop={2}
                 padding={2}
@@ -60,7 +60,7 @@ const OrdersPage = () => {
                 <Box flex={{base: 1, lg: 0.35}} fontSize={20} marginY={{base: "4px"}}>
                   {format(order.deliveryDate, "MM/dd/yyyy")}
                 </Box>
-                <Box flex={{base: 1, lg: 0.1}} fontSize={20} marginY={{base: "4px"}}>
+                <Box flex={{base: 1, lg: 0.15}} fontSize={20} marginY={{base: "4px"}}>
                   {getOrderTotal(order)}
                 </Box>
                 <Box
