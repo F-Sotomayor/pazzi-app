@@ -101,6 +101,21 @@ const IndexPage: React.FC<Props> = ({products}) => {
                         justifyContent="center"
                         w={{base: "130px", lg: "200px"}}
                       >
+                        Cantidad
+                      </Box>
+                    </Flex>
+                    <Flex flex={0.5} justifyContent="center">
+                      <Box
+                        alignItems="center"
+                        backgroundColor="primary.300"
+                        borderRadius={8}
+                        color="white"
+                        display="flex"
+                        fontSize={20}
+                        height="50px"
+                        justifyContent="center"
+                        w={{base: "130px", lg: "200px"}}
+                      >
                         Precio
                       </Box>
                     </Flex>
@@ -111,7 +126,15 @@ const IndexPage: React.FC<Props> = ({products}) => {
                         return (
                           <Stack key={product.id} direction="row" h="auto" marginY={4} w="100%">
                             <Flex flex={0.5} justifyContent="center">
-                              <Box>{product.title}</Box>
+                              <Box marginLeft="30%" textAlign="left" w="70%">
+                                {product.title}
+                                {presentation.units > 10
+                                  ? `(Caja de ${presentation.units} panes individuales)`
+                                  : `(Pack de ${presentation.units} unidades)`}
+                              </Box>
+                            </Flex>
+                            <Flex flex={0.5} justifyContent="center">
+                              <Box w="100px">{presentation.count}</Box>
                             </Flex>
                             <Flex flex={0.5} justifyContent="center">
                               <Box w="100px">$ {presentation.price * presentation.count}</Box>
