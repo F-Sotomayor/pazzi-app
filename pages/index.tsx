@@ -200,6 +200,7 @@ const IndexPage: React.FC<Props> = ({products}) => {
             position="fixed"
             top={{base: "0%", lg: "90%"}}
             w={128}
+            zIndex={10000}
             onClick={() => firebase.auth().signOut()}
           >
             Cerrar Sesion
