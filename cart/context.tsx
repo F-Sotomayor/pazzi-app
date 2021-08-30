@@ -36,6 +36,7 @@ const CartProvider: React.FC<Props> = ({children, products}) => {
     products.map((product) => ({
       id: product.id,
       title: product.title,
+      title2: product.title2,
       presentations: product.presentations.map((presentation) => ({
         ...presentation,
         count: 0,
