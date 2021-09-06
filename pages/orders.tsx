@@ -20,7 +20,7 @@ const OrdersPage = () => {
   return (
     <Stack align="center" maxH="auto" maxW="100vw" minH="100vh" minW="100vw" padding={4}>
       <Heading>Mis pedidos</Heading>
-      <Stack align="center" h="auto" w={{base: "100vw", lg: "125%"}}>
+      <Stack align="center" h="auto" w={{base: "100vw", lg: "100vw"}}>
         <Flex
           align={{base: "center"}}
           backgroundColor="primary.100"
@@ -29,13 +29,14 @@ const OrdersPage = () => {
           fontWeight={500}
           marginTop={12}
           padding={2}
-          w={{base: "100%", lg: "50%"}}
+          w={{base: "100%", lg: "80%"}}
         >
           <Box flex={{base: 1, lg: 0.1}}>Orden</Box>
-          <Box flex={{base: 1, lg: 0.3}}>Fecha</Box>
-          <Box flex={{base: 1, lg: 0.3}}>Fecha de entrega</Box>
-          <Box flex={{base: 1, lg: 0.2}}>Total</Box>
-          <Box flex={{base: 1, lg: 0.2}} />
+          <Box flex={{base: 1, lg: 0.35}}>Fecha</Box>
+          <Box flex={{base: 1, lg: 0.35}}>Fecha de entrega</Box>
+          <Box flex={{base: 1, lg: 0.35}}>Total</Box>
+          <Box flex={{base: 1, lg: 0.35}}>Estado</Box>
+          <Box flex={{base: 1, lg: 0.3}} />
         </Flex>
         {orders.map((order) => {
           if (order.deliveryDate)
@@ -49,7 +50,7 @@ const OrdersPage = () => {
                 h="auto"
                 marginTop={2}
                 padding={2}
-                w={{base: "100%", lg: "50%"}}
+                w={{base: "100%", lg: "80%"}}
               >
                 <Box flex={{base: 1, lg: 0.1}} fontSize={20} marginY={{base: "4px"}}>
                   {order.ordernumber}
@@ -60,8 +61,17 @@ const OrdersPage = () => {
                 <Box flex={{base: 1, lg: 0.35}} fontSize={20} marginY={{base: "4px"}}>
                   {format(order.deliveryDate, "MM/dd/yyyy")}
                 </Box>
-                <Box flex={{base: 1, lg: 0.15}} fontSize={20} marginY={{base: "4px"}}>
+                <Box flex={{base: 1, lg: 0.35}} fontSize={20} marginY={{base: "4px"}}>
                   {getOrderTotal(order)}
+                </Box>
+                <Box flex={{base: 1, lg: 0.35}} fontSize={20} marginY={{base: "4px"}}>
+                  {order.status === "cancelled"
+                    ? "Cancelado"
+                    : order.status === "pending"
+                    ? "Pendiente"
+                    : order.status === "completed"
+                    ? "Confirmado"
+                    : "Completado"}
                 </Box>
                 <Box
                   display="flex"
