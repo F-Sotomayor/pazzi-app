@@ -34,7 +34,7 @@ const OrderPreview = ({onClose, order}) => {
             <Flex
               align="center"
               backgroundColor="primary.200"
-              display={{base: "none"}}
+              display={{base: "flex"}}
               fontSize={20}
               fontWeight={500}
               h="10vh"
@@ -44,18 +44,18 @@ const OrderPreview = ({onClose, order}) => {
               padding={4}
               w="80%"
             >
-              <Box display={{base: "none"}} flex={0.3}>
+              <Box display={{base: "flex"}} flex={0.3}>
                 Fecha
               </Box>
               <Box
-                display={{base: "none", lg: "flex"}}
+                display={{base: "flex", lg: "flex"}}
                 flex={0.3}
                 justifyContent={{base: "center", lg: "flex-start"}}
               >
                 Pedido
               </Box>
               <Box
-                display={{base: "none", lg: "flex"}}
+                display={{base: "flex", lg: "flex"}}
                 flex={0.3}
                 justifyContent={{base: "center", lg: "flex-start"}}
               >
@@ -63,7 +63,7 @@ const OrderPreview = ({onClose, order}) => {
               </Box>
             </Flex>
             <Flex align="center" justify="center" margin="auto" padding={4} w="80%">
-              <Box alignSelf="flex-start" display={{base: "none"}} flex={0.3}>
+              <Box alignSelf="flex-start" display={{base: "flex"}} flex={0.3}>
                 {" "}
                 {format(order.date, "MM/dd/yyyy / HH:mm:ss")}
               </Box>
@@ -87,9 +87,7 @@ const OrderPreview = ({onClose, order}) => {
                             {item.title}
                           </Badge>
                           <Box key={index}>
-                            <Text>
-                              Pack: {presentation.count} : {presentation.units}
-                            </Text>
+                            <Text>{presentation.count * presentation.units}</Text>
                           </Box>
                         </Flex>
                       );
@@ -98,7 +96,7 @@ const OrderPreview = ({onClose, order}) => {
               </Box>
               <Box
                 alignSelf="flex-start"
-                display={{base: "none"}}
+                display={{base: "flex"}}
                 flex={0.3}
                 justifyContent={{base: "center", lg: "flex-start"}}
               >
