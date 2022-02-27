@@ -14,3 +14,5 @@ yarn dev
 Log In:
 User: testuser@cfinal.com
 Password: testuser
+
+Live Demo: https://pazzi-app.vercel.app/
